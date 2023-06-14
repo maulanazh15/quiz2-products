@@ -12,7 +12,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::paginate(5);
         return view('products.index', compact('products'));
     }
 
@@ -86,5 +86,27 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('products.index')->with('success', 'Produk berhasil dihapus.');
+    }
+
+    public function productsAvailable() {
+        $products = Product::where('stok','>',0)->paginate(5);
+
+        return view('products.index', compact('products'));
+    }
+
+    public function productsUnavailable() {
+        $products = Product::where('stok','=',0)->paginate(5);
+
+        return view('products.index', compact('products'));
+    }
+
+    public function updateStok(Request $request, $id) {
+        $validatedData = $request->validate([
+            'stok' => 'required|int',
+        ]);
+
+        Product::where('id', $id)->update($validatedData);
+
+        return redirect()->route('products.show', $id);
     }
 }

@@ -16,7 +16,7 @@ use App\Http\Controllers\ProfileController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('dashboard');
 });
 
 Route::get('/dashboard', function () {
@@ -31,9 +31,13 @@ Route::get('/dashboard', function () {
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+Route::get('/products/available', [ProductController::class, 'productsAvailable'])->name('products.available');
+Route::get('/products/unavailable', [ProductController::class, 'productsUnavailable'])->name('products.unavailable');
+Route::put('/products/{id}/stok', [ProductController::class, 'updateStok'])->name('products.updateStok');
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 Route::get('/products/{id}/edit', [ProductController::class,'edit'])->name('products.edit');
 Route::put('/products/{id}/update', [ProductController::class, 'update'])->name('products.update');
 Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+
 
 require __DIR__.'/auth.php';

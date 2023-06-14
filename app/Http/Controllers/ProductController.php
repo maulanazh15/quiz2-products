@@ -37,7 +37,7 @@ class ProductController extends Controller
 
         Product::create($validatedData);
 
-        return redirect()->route('products.index');
+        return redirect()->route('products.index')->with('success', 'Produk berhasil disimpan.');
     }
 
     /**
@@ -45,7 +45,9 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $product = Product::find($id);
+
+        return view('products.show', compact('product'));
     }
 
     /**
@@ -53,22 +55,36 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $product = Product::find($id);
+
+        return view('products.edit', compact('product'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'nama_produk' => 'required',
+            'harga' => 'required',
+            'stok' => 'required',
+        ]);
+
+        $product = Product::find($id);
+        $product->update($validatedData);
+
+        return redirect()->route('products.index')->with('success', 'Produk berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $product = Product::find($id);
+        $product->delete();
+
+        return redirect()->route('products.index')->with('success', 'Produk berhasil dihapus.');
     }
 }

@@ -22,11 +22,18 @@ class DatabaseSeeder extends Seeder
 
         $faker = Faker::create();
 
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             Product::create([
                 'nama_produk' => $faker->word,
                 'harga' => $faker->randomNumber(4),
                 'stok' => $faker->numberBetween(0, 1000),
+            ]);
+        }
+        for ($i = 0; $i < 50; $i++) {
+            Product::create([
+                'nama_produk' => $faker->word,
+                'harga' => $faker->randomNumber(4),
+                'stok' => 0,
             ]);
         }
     }

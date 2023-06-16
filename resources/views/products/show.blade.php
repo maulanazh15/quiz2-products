@@ -10,7 +10,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h3 class="text-lg font-semibold mb-4">{{ $product->nama_produk }}</h3>
-                    <p class="mb-2">Harga : {{ $product->harga }}</p>
+                    <p class="mb-2">Harga : Rp{{ $product->harga }}</p>
                     <p class="mb-2">Stok : {{ $product->stok }}</p>
                     <hr class="mb-6 mt-3">
                     <form action="{{ route('products.updateStok', $product->id) }}" method="post">

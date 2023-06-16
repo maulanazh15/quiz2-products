@@ -31,8 +31,8 @@ class ProductController extends Controller
     {
         $validatedData = $request->validate([
             'nama_produk' => 'required',
-            'harga' => 'required',
-            'stok' => 'required',
+            'harga' => 'required|int|min:0',
+            'stok' => 'required|int|min:0',
         ]);
 
         Product::create($validatedData);
@@ -67,8 +67,8 @@ class ProductController extends Controller
     {
         $validatedData = $request->validate([
             'nama_produk' => 'required',
-            'harga' => 'required',
-            'stok' => 'required',
+            'harga' => 'required|integer|min:0',
+            'stok' => 'required|integer|min:0',
         ]);
 
         $product = Product::find($id);
@@ -102,7 +102,7 @@ class ProductController extends Controller
 
     public function updateStok(Request $request, $id) {
         $validatedData = $request->validate([
-            'stok' => 'required|int',
+            'stok' => 'required|int|min:0',
         ]);
 
         Product::where('id', $id)->update($validatedData);
